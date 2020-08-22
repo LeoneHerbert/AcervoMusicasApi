@@ -13,14 +13,8 @@ import java.util.Optional;
 
 @Service
 public class MusicaService {
-	private final GenericoDao<Musica, Integer> genericoDao;
-
 	@Autowired
 	private MusicaRepository musicaRepository;
-
-	public MusicaService() {
-		genericoDao = new GenericoDao<>(this.musicaRepository, Musica.class);
-	}
 
 	@Transactional(readOnly = true)
 	public Page<Musica> buscarTodos(Pageable paginacao) {
@@ -29,7 +23,7 @@ public class MusicaService {
 	
 	@Transactional
 	public Musica salva(Musica musica) {
-		return genericoDao.salvar(musica);
+		return musicaRepository.save(musica);
 	}
 	
 	@Transactional
@@ -37,17 +31,17 @@ public class MusicaService {
 		musicaAtualizacao.setNome(musicaNovosDados.getNome());
 		musicaAtualizacao.setUrl(musicaNovosDados.getUrl());
 
-		return genericoDao.salvar(musicaAtualizacao);
+		return musicaRepository.save(musicaAtualizacao);
 	}
 
 	@Transactional(readOnly = true)
 	public Optional<Musica> buscarPor(Integer id) {
-		return genericoDao.buscarPor(id);
+		return musicaRepository.findById(id);
 	}
 
 	@Transactional
 	public void excluir(Integer id) {
-		genericoDao.excluirPor(id);
+		musicaRepository.deleteById(id);
 	}
 
 	@Transactional(readOnly = true)
