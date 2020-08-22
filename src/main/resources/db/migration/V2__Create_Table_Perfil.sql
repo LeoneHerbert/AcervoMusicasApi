@@ -1,0 +1,5 @@
+CREATE TABLE perfil(
+    id  INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    CONSTRAINT pk_id_perfil PRIMARY KEY (id)
+)engine=InnoDB DEFAULT CHARSET=utf8;
