@@ -15,6 +15,9 @@ public class Musica {
     @Column(length = 255, nullable = false)
     private String url;
 
+    public Musica() {
+    }
+
     public Musica(String nome, String url) {
 		this.nome = nome;
 		this.url = url;
