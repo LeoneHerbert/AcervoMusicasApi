@@ -69,6 +69,13 @@ public class MusicaController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/playlist")
+    public Page<DetalhesMusicaDto> buscarPorPlaylist(@RequestParam(value = "idPlaylist") Integer idPlaylist,
+                                                               @PageableDefault(sort = "nome", direction = Sort.Direction.ASC) Pageable paginacao) {
+        Page<Musica> musicas = musicaService.buscarPorPlaylist(idPlaylist, paginacao);
+        return DetalhesMusicaDto.converter(musicas);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<MusicaDto> editar(@PathVariable Integer id, @RequestBody @Valid MusicaForm form) {
         Optional<Musica> musicaOpt = musicaService.buscarPor(id);
