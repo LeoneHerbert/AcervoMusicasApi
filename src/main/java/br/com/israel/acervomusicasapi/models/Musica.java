@@ -1,6 +1,8 @@
 package br.com.israel.acervomusicasapi.models;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +17,9 @@ public class Musica {
     @Column(length = 255, nullable = false)
     private String url;
 
+    @OneToMany(mappedBy = "musica")
+    private List<PlaylistMusica> playlistMusica;
+
     public Musica() {
     }
 
@@ -23,7 +28,7 @@ public class Musica {
 		this.url = url;
 	}
 
-	@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -60,5 +65,9 @@ public class Musica {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<PlaylistMusica> getPlaylistMusica() {
+        return Collections.unmodifiableList(playlistMusica);
     }
 }

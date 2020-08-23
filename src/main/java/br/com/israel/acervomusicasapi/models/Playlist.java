@@ -1,7 +1,6 @@
 package br.com.israel.acervomusicasapi.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -18,13 +17,8 @@ public class Playlist {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    @ManyToMany
-    @JoinTable(
-        name = "playlist_musica",
-        joinColumns = @JoinColumn(name = "playlist_id"),
-        inverseJoinColumns = @JoinColumn(name = "musica_id")
-    )
-    List<Musica> musicas = new ArrayList<>();
+    @OneToMany(mappedBy = "playlist")
+    private List<PlaylistMusica> playlistMusica;
 
     public Playlist() {
     }
@@ -40,12 +34,12 @@ public class Playlist {
         Playlist playlist = (Playlist) o;
         return Objects.equals(id, playlist.id) &&
                 Objects.equals(nome, playlist.nome) &&
-                Objects.equals(musicas, playlist.musicas);
+                Objects.equals(usuario, playlist.usuario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, musicas);
+        return Objects.hash(id, nome, usuario);
     }
 
     public Integer getId() {
@@ -72,11 +66,8 @@ public class Playlist {
         this.usuario = usuario;
     }
 
-    public List<Musica> getMusicas() {
-        return Collections.unmodifiableList(musicas);
+    public List<PlaylistMusica> getPlaylistMusica() {
+        return Collections.unmodifiableList(playlistMusica);
     }
 
-    public void adicionarMusica(Musica musica) {
-        this.musicas.add(musica);
-    }
 }

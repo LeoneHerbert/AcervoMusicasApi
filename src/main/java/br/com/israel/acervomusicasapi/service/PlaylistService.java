@@ -3,8 +3,10 @@ package br.com.israel.acervomusicasapi.service;
 import br.com.israel.acervomusicasapi.config.security.TokenService;
 import br.com.israel.acervomusicasapi.models.Musica;
 import br.com.israel.acervomusicasapi.models.Playlist;
+import br.com.israel.acervomusicasapi.models.PlaylistMusica;
 import br.com.israel.acervomusicasapi.models.Usuario;
 import br.com.israel.acervomusicasapi.repository.MusicaRepository;
+import br.com.israel.acervomusicasapi.repository.PlaylistMusicaRepository;
 import br.com.israel.acervomusicasapi.repository.PlaylistRepository;
 import br.com.israel.acervomusicasapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class PlaylistService {
     @Autowired
     private MusicaRepository musicaRepository;
 
+    @Autowired
+    private PlaylistMusicaRepository playlistMusicaRepository;
+
     @Transactional
     public Playlist salvar(Playlist playlist, String token) {
         Integer idUsuario = tokenService.getIdUsuario(tokenService.retornarTokenSemBearer(token));
@@ -44,11 +49,11 @@ public class PlaylistService {
     }
 
     @Transactional
-    public Playlist adicionarMusica(Playlist playlist, Integer idMusica) {
+    public PlaylistMusica adicionarMusica(Playlist playlist, Integer idMusica) {
         Musica musica = musicaRepository.getOne(idMusica);
-        playlist.adicionarMusica(musica);
+        PlaylistMusica playlistMusica = new PlaylistMusica(playlist, musica);
 
-        return playlistRepository.save(playlist);
+        return playlistMusicaRepository.save(playlistMusica);
     }
 
     @Transactional(readOnly = true)
@@ -57,5 +62,22 @@ public class PlaylistService {
         Usuario usuario = usuarioRepository.getOne(idUsuario);
 
         return playlistRepository.findAllByUsuario(usuario, paginacao);
+    }
+
+    @Transactional
+    public void excluir(Integer id) {
+        playlistRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Playlist editar(Playlist playlistAtualizacao, Playlist playlistNovosDados) {
+        playlistAtualizacao.setNome(playlistNovosDados.getNome());
+        return playlistRepository.save(playlistAtualizacao);
+    }
+
+    @Transactional
+    public void excluirMusica(Playlist playlist, Integer idMusica) {
+        Musica musica = musicaRepository.getOne(idMusica);
+        playlistMusicaRepository.deleteMusicaPlaylist(playlist.getId(), musica.getId());
     }
 }
