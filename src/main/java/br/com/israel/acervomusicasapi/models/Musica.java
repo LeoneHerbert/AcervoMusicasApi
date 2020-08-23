@@ -10,11 +10,7 @@ public class Musica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(length = 50, nullable = false)
     private String nome;
-
-    @Column(length = 255, nullable = false)
     private String url;
 
     @OneToMany(mappedBy = "musica")
