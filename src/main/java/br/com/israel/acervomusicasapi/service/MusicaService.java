@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.israel.acervomusicasapi.models.Musica;
 import br.com.israel.acervomusicasapi.repository.MusicaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +28,9 @@ public class MusicaService {
 	
 	@Transactional
 	public Musica salva(Musica musica) {
+		if(musica.getUrl().isEmpty() || musica.getNome().isEmpty())
+			throw new RuntimeException("A música deve conter um nome e uma url.");
+
 		return musicaRepository.save(musica);
 	}
 	
@@ -37,7 +39,7 @@ public class MusicaService {
 		musicaAtualizacao.setNome(musicaNovosDados.getNome());
 		musicaAtualizacao.setUrl(musicaNovosDados.getUrl());
 
-		return musicaRepository.save(musicaAtualizacao);
+		return this.salva(musicaAtualizacao);
 	}
 
 	@Transactional(readOnly = true)
