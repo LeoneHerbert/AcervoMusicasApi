@@ -18,6 +18,9 @@ public class Usuario implements UserDetails {
     private String email;
     private String senha;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Playlist> playlists;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "usuario_perfil",
