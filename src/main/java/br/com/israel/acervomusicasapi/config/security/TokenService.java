@@ -46,4 +46,8 @@ public class TokenService {
         Claims body = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
         return Integer.parseInt(body.getSubject());
     }
+
+    public String retornarTokenSemBearer(String token) {
+        return token.substring(7, token.length());
+    }
 }
