@@ -18,13 +18,20 @@ public class Playlist {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
         name = "playlist_musica",
         joinColumns = @JoinColumn(name = "playlist_id"),
         inverseJoinColumns = @JoinColumn(name = "musica_id")
     )
     List<Musica> musicas = new ArrayList<>();
+
+    public Playlist() {
+    }
+
+    public Playlist(String nome) {
+        this.nome = nome;
+    }
 
     @Override
     public boolean equals(Object o) {
