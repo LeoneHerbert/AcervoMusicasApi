@@ -4,6 +4,7 @@ import br.com.israel.acervomusicasapi.config.security.TokenService;
 import br.com.israel.acervomusicasapi.controller.dto.TokenDto;
 import br.com.israel.acervomusicasapi.controller.form.Loginform;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,7 +28,7 @@ public class AutenticacaoController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<TokenDto> login(@RequestBody @Valid Loginform form) {
+    public ResponseEntity<?> login(@RequestBody @Valid Loginform form) {
         UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 
         try{
@@ -36,7 +37,7 @@ public class AutenticacaoController {
 
             return ResponseEntity.ok(new TokenDto(token, "Bearer"));
         }catch (AuthenticationException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("A autenticação falhou. Por favor, verifique seus dados!");
         }
     }
 }
