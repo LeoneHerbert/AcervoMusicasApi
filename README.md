@@ -37,7 +37,7 @@ O projeto trata-se de uma API para a criação de Playlists e cadastro de músic
   Como forma de facilitar os testes e conhecimento da API, foi disponibilizada uma documentação pelo Swagger através da rota <strong>/swagger-ui.html</strong> para acessá-la, basta executar o projeto!
   Além disso, também foi disponibilizada uma rota para o monitoramento da API, para acessar utilize a rota <strong>/actuator</strong>
   
-  O projeto também conta com alguns testes unitários e de integração, basta executar as classes de testes que eles começaram a rodar ;)
+  O projeto também conta com alguns testes unitários e de integração, basta executar as classes de testes que eles irão rodar ;)
 </p>
 
 ## 🤔 Como executar
