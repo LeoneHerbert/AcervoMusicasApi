@@ -64,7 +64,7 @@ Para realizar a execução do projeto é bem simples. Este projeto possui integr
 
 ![image](https://user-images.githubusercontent.com/45599504/90998736-316add00-e59b-11ea-8148-63fec6df6ed9.png)
 
-Após isso, não é necessário criar um banco de dados com o nome que está no projeto. Apenas certifique-se de que as configurações de acesso ao banco de dados estão corretas, isso inclui URL para o banco, Porta (se for necessário), Usuário e Senha. Após se certificar, o projeto irá se encarregar de criar o banco e montar seu esquema, pois, como já mencionado, o projeto já conta com uma tecnologia de migração de banco de dados o Flyway.
+Após isso, não é necessário criar um banco de dados com o nome que está no projeto. Apenas certifique-se de que as configurações de acesso ao banco de dados estão corretas, isso inclui URL para o banco, Porta (se for necessário), Usuário e Senha (não se esqueça de alterar as do Flyway também). Após se certificar, o projeto irá se encarregar de criar o banco e montar seu esquema, pois, como já mencionado, o projeto já conta com uma tecnologia de migração de banco de dados o Flyway.
 
 Após ter feito essa pequena verificação de configuração, você pode dá um start no projeto, para isso, se você estiver em uma IDE, basta executar a classe <strong>AcervoDeMusicasApiApplication</strong> na raiz do projeto! Se você ainda não tiver baixado as dependências, assim que você executar, provavelmente o projeto se encarregarar de baixar. Pode demorar um pouco para executar, pois, ele deverá baixar as dependências e realizar a migração do banco.
 
